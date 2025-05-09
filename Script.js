@@ -65,3 +65,13 @@ function closeModal(e, clickedOutside) {
 
 
 
+//Handle the hover effect on the x-icon image
+const xIcon = document.querySelector(".x-icon");
+
+xIcon.onmouseover = function() {
+    xIcon.src = 'Images/Icons/xdark.png';
+};
+
+xIcon.onmouseout = function() {
+    xIcon.src = 'Images/Icons/xlight.png';
+};

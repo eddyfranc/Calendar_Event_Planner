@@ -14,11 +14,6 @@
     height: 8vh;
 }
 
-.hidden {
-    display: none;
-}
-
-
 
 .dates_style:hover {
     background-color: #A9A9A9; 
