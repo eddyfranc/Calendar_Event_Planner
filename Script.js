@@ -36,3 +36,42 @@ dates_divs.forEach(div => {
     div.addEventListener('click', handleClick);
 });
 
+
+//Section to Open and Close Our Modal
+const openEvent = document.getElementById("openEvent");
+const modal = document.querySelector(".events_modal");
+const closeBtn = document.querySelectorAll(".close-modal-btn");
+
+
+//Event Listeners for modal section
+openEvent.addEventListener("click", openModal);
+modal.addEventListener("click", (e) => closeModal(e, true));
+closeBtn.forEach(div => {
+    div.addEventListener("click", closeModal);
+});
+
+//section to open our modal
+function openModal() {
+    modal.classList.remove("hide");
+}
+
+//section to close our modal
+function closeModal(e, clickedOutside) {
+    if (clickedOutside) {
+        if (e.target.classList.contains("events_grid"))
+            modal.classList.add("hide");
+    } else modal.classList.add("hide");
+}
+
+
+
+//Handle the hover effect on the x-icon image
+const xIcon = document.querySelector(".x-icon");
+
+xIcon.onmouseover = function() {
+    xIcon.src = 'Images/Icons/xdark.png';
+};
+
+xIcon.onmouseout = function() {
+    xIcon.src = 'Images/Icons/xlight.png';
+};
