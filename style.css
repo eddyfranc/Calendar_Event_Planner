@@ -14,12 +14,23 @@
     height: 8vh;
 }
 
-
 .dates_style:hover {
     background-color: #A9A9A9; 
 }
 
+.modal{
+    position: relative;
+    
+    background-color: rgba(0, 0, 0, 0.422);
 
+}
+.tital{
+    border-color: #a3a3a34a;
+}
+.event-list{
+    border-color: #a3a3a34a;
+    background-color: #f4f3f3;
+}
 .events_modal {
     background: rgba(0, 0, 0, 0.7);
     position: fixed;
