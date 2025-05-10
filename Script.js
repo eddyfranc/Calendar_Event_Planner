@@ -5,7 +5,7 @@ let EventDetails = {};
 // Adding individual dates in JS
 for (let i = 0; i < 35; i++) {
     const datesDiv = document.createElement("div");
-    datesDiv.innerHTML = ` <p>This</p>`;
+    datesDiv.innerHTML = ` <p>${i + 1}</p>`;
     datesDiv.id = i
     const element = document.getElementById("date")
     element.appendChild(datesDiv);
@@ -114,7 +114,6 @@ xIcon.onmouseout = function() {
 
 //Section to get User Event Values
 function addEventDetails(e) {
-    alert("Running add details")
     let title = document.getElementById("title").value;
     let date = document.getElementById("date").value;
     let time = document.getElementById("time").value;
@@ -123,10 +122,10 @@ function addEventDetails(e) {
     EventDetails["title"] = title;
     EventDetails["date"] = date;
     EventDetails["time"] = time;
-    EventDetails["description"] = description
+    EventDetails["description"] = description;
 
-    console.log(EventDetails)
-    openModal(e, 1)
+    console.log(EventDetails);
+    openModal(e, 2)
 }
 
 
