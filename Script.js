@@ -1,4 +1,4 @@
-let eventId = 0;
+let eventId = -2;
 let EventDetails = {};
 const noEvent = document.getElementById("no-event");
 
@@ -20,7 +20,12 @@ function addEvent(id_number) {
     const eventsDiv = document.createElement("div");
     eventsDiv.innerHTML = `<img src="Images/Icons/dot.png" width="64px"/>`
     eventsDiv.classList.add("event_div_style");
-    document.getElementById(--id_number).appendChild(eventsDiv);
+    const elem = document.getElementById(id_number - 1);
+    if (!elem.classList.contains("event_image")) {
+        elem.appendChild(eventsDiv);
+        elem.classList.add("event_image");
+    }
+    
     
 
 }
@@ -28,9 +33,7 @@ function addEvent(id_number) {
 
 //Add click event for any child div of div = grid
 function handleClick(evId) {
-    console.log('Clicked in handleClick:', evId);
     const clickedDiv = Number(evId) + 1;
-    console.log(evId);
     eventId = clickedDiv;
    
     //Check if there are already events present
@@ -42,14 +45,13 @@ function handleClick(evId) {
         }
         openModal('click', 2);
     } else {
-        console.log("Inside Handel Click")
         noEvent.classList.add('hide');
         openModal('click', 2);
     }  
     //Check if we have added an event
     
     dateTitle.innerHTML = `Events for ${clickedDiv}`;
-    addEvent(clickedDiv);
+    
 }
 
 // Get all divs with the class 'dates_style'
@@ -63,7 +65,6 @@ dates_divs.forEach(div => {
 
 
 
-
 //Section to Open and Close Our Modal
 const openEvent = document.getElementById("openEvent");
 const modal = document.querySelector(".events_modal");
@@ -74,7 +75,6 @@ const modal2 = document.getElementById("events-container");
 const openEvent2 = document.getElementById("addEvent-btn");
 const eventList = document.querySelector(".event-list");
 const dateTitle = document.querySelector(".tital");
-console.log(modal);
 
 
 
@@ -119,7 +119,6 @@ function closeModal(e, clickedOutside, num) {
         modal2.classList.add("hide");
         //check if list items have been addded
         let listItem = document.querySelectorAll(".list-item")
-        console.log("This is the List Item " + typeof(listItem));
         listItem.forEach(node => {
             node.classList.add("hide");
         });
@@ -147,9 +146,6 @@ function addEventDetails(e) {
     let time = document.getElementById("time").value;
     let description = document.getElementById("description").value;
     elemID = e.target;
-    console.log("ID value is ")
-    console.log(elemID);
-    console.log("After ID value")
     
     EventDetails["id"] = eventId;
     EventDetails["title"] = title;
@@ -157,8 +153,14 @@ function addEventDetails(e) {
     EventDetails["time"] = time;
     EventDetails["description"] = description;
 
+    if (eventId < 0) {
+        getIdFromDate();
+    }
+    
     saveOurEvent(EventDetails);
-    openModal(e, 2);
+    addEvent(eventId);
+    handleClick(--eventId);
+    
 }
 
 
@@ -180,15 +182,13 @@ function saveOurEvent(eventObj) {
 function retrieveEvent() {
     // Retrieve the object from localStorage
     const storedUser = JSON.parse(localStorage.getItem('myObjects'));
-    if (storedUser.length !== 0) {
+    if (storedUser?.length !== 0) {
         const eventArr = getArrMatchingId(storedUser);
-        console.log("Event array in retrieve is " + eventArr.length)
         if (eventArr.length !== 0) {
             addListEvent(eventArr);
             eventArr.length = 0;
             return true;
         } else {
-            console.log("Running in False");
             return false;
         }  
     } else  {
@@ -197,15 +197,21 @@ function retrieveEvent() {
 }
 
 function addListEvent(eventInfo) {
+    const parent_ul = document.getElementById("event-list");
+    const childNodes = parent_ul.childNodes
+
+    while (childNodes.length >= 3) {
+        parent_ul.removeChild(parent_ul.childNodes[2]);
+  }
     eventInfo.forEach(obj => {
         const listItem = createEventListing(obj);
-        document.getElementById("event-list").appendChild(listItem);
+        parent_ul.appendChild(listItem);
     });
 }
 
 function getArrMatchingId(userEventObj) {
     let eventsIdArr = [];
-    userEventObj.forEach(obj => {
+    userEventObj?.forEach(obj => {
         if (obj.id === eventId) {
             eventsIdArr.push(obj)
         }
@@ -228,6 +234,23 @@ function createEventListing(eventObject) {
     return listItem;
 }
 
+function onWindowLoad() {
+    const storedUser = JSON.parse(localStorage.getItem('myObjects'));
+    const ids = new Set();
+    storedUser?.forEach(obj => {
+        ids.add(obj.id);
+    });
+    ids.forEach((value) => {
+        addEvent(value);
+    });
+}
+
+function getIdFromDate() {
+    let date = document.getElementById("idDate").value;
+    const myArray = date.split("-");
+    eventId = myArray[2];
+
+}
 
 
 
