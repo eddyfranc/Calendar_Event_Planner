@@ -154,7 +154,9 @@ function addEventDetails(e) {
     EventDetails["description"] = description;
 
     if (eventId < 0) {
+        console.log("Event ID is " +eventId);
         getIdFromDate();
+        EventDetails["id"] = eventId;
     }
     
     saveOurEvent(EventDetails);
@@ -247,8 +249,10 @@ function onWindowLoad() {
 
 function getIdFromDate() {
     let date = document.getElementById("idDate").value;
+    debugger;
     const myArray = date.split("-");
-    eventId = myArray[2];
+    eventId = Number(myArray[2]);
+    console.log("Event id in get Id from " + eventId );
 
 }
 
