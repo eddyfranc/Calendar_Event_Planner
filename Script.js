@@ -1,5 +1,6 @@
 let eventId = 0;
 let EventDetails = {};
+const noEvent = document.getElementById("no-event");
 
 
 // Adding individual dates in JS
@@ -19,20 +20,35 @@ function addEvent(id_number) {
     const eventsDiv = document.createElement("div");
     eventsDiv.innerHTML = `<img src="Images/Icons/dot.png" width="64px"/>`
     eventsDiv.classList.add("event_div_style");
-    document.getElementById(--id_number).appendChild(eventsDiv)
+    document.getElementById(--id_number).appendChild(eventsDiv);
     
 
 }
 
 
 //Add click event for any child div of div = grid
-function handleClick(event) {
-    //Open the event details module
-    openModal(event, 2)
-    const clickedDiv = Number(event.target.id) + 1;
+function handleClick(evId) {
+    console.log('Clicked in handleClick:', evId);
+    const clickedDiv = Number(evId) + 1;
+    console.log(evId);
     eventId = clickedDiv;
+   
+    //Check if there are already events present
+    const value = retrieveEvent();
+    //Type is Boolean
+    if (!value) {
+        if (noEvent.classList.contains("hide")) {
+            noEvent.classList.remove('hide');
+        }
+        openModal('click', 2);
+    } else {
+        console.log("Inside Handel Click")
+        noEvent.classList.add('hide');
+        openModal('click', 2);
+    }  
+    //Check if we have added an event
+    
     dateTitle.innerHTML = `Events for ${clickedDiv}`;
-    // alert(`You clicked: ${clickedDiv.id}`);
     addEvent(clickedDiv);
 }
 
@@ -41,8 +57,9 @@ const dates_divs = document.querySelectorAll('.dates_style');
 
 // Add event listener to each div
 dates_divs.forEach(div => {
-    div.addEventListener('click', handleClick);
-});
+    div.addEventListener('click', function (event) {
+    // Always logs the class name of the blue div
+    handleClick(div.id )}, true)});
 
 
 
@@ -100,6 +117,12 @@ function closeModal(e, clickedOutside, num) {
             modal.classList.add("hide");
     } else if (num == 2) {
         modal2.classList.add("hide");
+        //check if list items have been addded
+        let listItem = document.querySelectorAll(".list-item")
+        console.log("This is the List Item " + typeof(listItem));
+        listItem.forEach(node => {
+            node.classList.add("hide");
+        });
     } else modal.classList.add("hide");  
 }
 
@@ -157,9 +180,20 @@ function saveOurEvent(eventObj) {
 function retrieveEvent() {
     // Retrieve the object from localStorage
     const storedUser = JSON.parse(localStorage.getItem('myObjects'));
-    const eventArr = getArrMatchingId(storedUser);
-    addListEvent(eventArr);
-
+    if (storedUser.length !== 0) {
+        const eventArr = getArrMatchingId(storedUser);
+        console.log("Event array in retrieve is " + eventArr.length)
+        if (eventArr.length !== 0) {
+            addListEvent(eventArr);
+            eventArr.length = 0;
+            return true;
+        } else {
+            console.log("Running in False");
+            return false;
+        }  
+    } else  {
+        return false;
+    }
 }
 
 function addListEvent(eventInfo) {
@@ -171,7 +205,6 @@ function addListEvent(eventInfo) {
 
 function getArrMatchingId(userEventObj) {
     let eventsIdArr = [];
-    debugger;
     userEventObj.forEach(obj => {
         if (obj.id === eventId) {
             eventsIdArr.push(obj)
