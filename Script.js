@@ -162,6 +162,7 @@ function addEventDetails(e) {
     saveOurEvent(EventDetails);
     addEvent(eventId);
     handleClick(--eventId);
+    eventId = -2;
     
 }
 
