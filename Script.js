@@ -4,8 +4,9 @@ const noEvent = document.getElementById("no-event");
 
 
 // Adding individual dates in JS
-for (let i = 0; i < 35; i++) {
+for (let i = 0; i < 31; i++) {
     const datesDiv = document.createElement("div");
+
     datesDiv.innerHTML = ` <p>${i + 1}</p>`;
     datesDiv.id = i
     const element = document.getElementById("date")
@@ -18,7 +19,8 @@ for (let i = 0; i < 35; i++) {
 //Adding an event in JavaScript
 function addEvent(id_number) {
     const eventsDiv = document.createElement("div");
-    eventsDiv.innerHTML = `<img src="Images/Icons/dot.png" width="64px"/>`
+    eventsDiv.innerHTML = `<div style="display: flex; justify-content: center; align-items: center; height: 100%;">
+    <img src="Images/Icons/dot.png" width="64px"/></div>`;
     eventsDiv.classList.add("event_div_style");
     const elem = document.getElementById(id_number - 1);
     if (!elem.classList.contains("event_image")) {
@@ -51,6 +53,7 @@ function handleClick(evId) {
     //Check if we have added an event
     
     dateTitle.innerHTML = `Events for ${clickedDiv}`;
+    eventId = -2;
     
 }
 
@@ -162,7 +165,7 @@ function addEventDetails(e) {
     saveOurEvent(EventDetails);
     addEvent(eventId);
     handleClick(--eventId);
-    eventId = -2;
+    
     
 }
 
@@ -226,10 +229,10 @@ function createEventListing(eventObject) {
     const listItem = document.createElement('li');
     listItem.className = 'list-item';
     listItem.innerHTML = `
-      <div class="actions">
-        <a href="#" class="edit">Edit</a>
-        <a href="#" class="delete">Delete</a>
-      </div>
+   <!--   <div class="actions"> -->
+     <!--    <a href="#" class="edit">Edit</a> -->
+      <!--   <a href="#" class="delete">Delete</a>-->
+     <!--  </div>-->
       <h4>${eventObject.title}</h4>
       <div class="time">Time: ${eventObject.time}</div>
       <div class="content">${eventObject.description}</div>
