@@ -1,0 +1,91 @@
+.dates_style {
+    height: 14vh;
+    background-color: #e9e9e9;
+    text-align: center;
+    color: black;
+    font-weight: bold;
+    margin: 2px 0;
+    border-radius: 0.25rem;
+    padding-top: 1.2rem;
+
+}
+
+.event_div_style {
+    height: 8vh;
+}
+
+.dates_style:hover {
+    background-color: #A9A9A9; 
+}
+
+.modal{
+    position: relative;
+    
+    background-color: rgba(0, 0, 0, 0.422);
+
+}
+.tital{
+    border-color: #a3a3a34a;
+}
+.event-list{
+    border-color: #a3a3a34a;
+    background-color: #f4f3f3;
+}
+.events_modal {
+    background: rgba(0, 0, 0, 0.7);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.hide {
+    display: none;
+}
+
+.blue_text {
+    background-color: aquamarine;
+}
+.list-item {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 12px;
+    margin: 10px;
+    max-width: 400px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    background-color: #fafafa;
+}
+
+.list-item h4 {
+    margin: 0 0 4px;
+    font-size: 16px;
+}
+
+.list-item .time {
+    color: #555;
+    font-size: 14px;
+}
+
+.list-item .content {
+    margin-top: 4px;
+    font-size: 14px;
+}
+
+.list-item .actions {
+    float: right;
+    font-size: 14px;
+}
+
+.list-item .actions a {
+    margin-left: 10px;
+    text-decoration: none;
+}
+
+.list-item .actions .edit {
+    color: #007bff;
+}
+
+.list-item .actions .delete {
+    color: #dc3545;
+}
